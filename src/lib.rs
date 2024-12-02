@@ -1,5 +1,5 @@
 //! A very simple API Authorization module for Rocket web applications
-//! 
+//!
 //! # Overview
 //! This module provides a simple token-based authorization system for Rocket web applications.
 //! It supports both enabled and disabled states, and validates Bearer tokens against a predefined set.
@@ -8,13 +8,13 @@
 //! ```no_run
 //! use rocket;
 //! use rocket_apitoken::{ApiToken, Authorized};
-//! 
+//!
 //! #[post("/<method>?<json>", data = "<data>")]
 //! async fn protected_endpoint(_auth: Authorized, /* other params */) {
 //!     // If this executes, the request was authorized
 //!     // ...
 //! }
-//! 
+//!
 //! #[launch]
 //! fn rocket() -> _ {
 //!     let tokens = vec!["secret-token".to_string()];
@@ -39,7 +39,6 @@ use rocket::request::{FromRequest, Outcome};
 use rocket::Request;
 use std::collections::HashSet;
 
-
 /// Configuration for API token authorization
 pub struct ApiToken {
     tokens: HashSet<String>,
@@ -54,10 +53,20 @@ impl ApiToken {
             enabled,
         }
     }
+    /// Create a new `ApiToken` instance from a list of bearer tokens
+    pub fn from_bearer_tokens(tokens: Vec<String>, enabled: bool) -> Self {
+        Self {
+            tokens: tokens
+                .into_iter()
+                .map(|token| format!("Bearer {}", token))
+                .collect(),
+            enabled,
+        }
+    }
 }
 
 /// Request guard that ensures requests are authorized
-/// 
+///
 /// This guard will succeed if either:
 /// - Authorization is disabled (`enabled = false` in ApiToken)
 /// - A valid bearer token is provided in the Authorization header
