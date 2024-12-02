@@ -2,6 +2,12 @@
 name = "rocket-apitoken"
 version = "0.1.0"
 edition = "2021"
+description = "A very simple API Authorization module for Rocket web applications"
+license = "MIT"
+repository = "https://github.com/kvinwang/rocket-apitoken"
+documentation = "https://docs.rs/rocket-apitoken"
+readme = "README.md"
+keywords = ["rocket", "auth", "token", "api"]
 
 [dependencies]
 rocket = "0.5.1"
