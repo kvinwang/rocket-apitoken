@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rocket = "0.5.1"
+rocket = { git = "https://github.com/rwf2/Rocket", branch = "master", features = ["mtls"] }
