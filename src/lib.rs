@@ -49,19 +49,17 @@ impl ApiToken {
     /// Create a new `ApiToken` instance
     pub fn new(tokens: Vec<String>, enabled: bool) -> Self {
         Self {
-            tokens: tokens.into_iter().collect(),
-            enabled,
-        }
-    }
-    /// Create a new `ApiToken` instance from a list of bearer tokens
-    pub fn from_bearer_tokens(tokens: Vec<String>, enabled: bool) -> Self {
-        Self {
             tokens: tokens
                 .into_iter()
                 .map(|token| format!("Bearer {}", token))
                 .collect(),
             enabled,
         }
+    }
+
+    /// Add bearer tokens to the list of valid tokens
+    pub fn add_bearer(&mut self, token: &str) {
+        self.tokens.insert(format!("Bearer {}", token));
     }
 }
 
